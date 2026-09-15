@@ -1,0 +1,39 @@
+<body>
+    <h1>Menu</h1>
+
+    <button onclick="loadMenu()">Click for Menu</button>
+
+    <table id="menuTable" border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Meal</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody id="menuBody"></tbody>
+    </table>
+
+    <script>
+        async function loadMenu(){
+
+            const response = await fetch("/api/items");
+            const items = await response.json();
+            const tbody = document.getElementById("menuBody");
+
+            tbody.innerHTML = "";
+
+            items.forEach(menuItem => {
+                const row = document.createElement("tr");
+
+                row.innerHTML = 
+                    "<td>" + menuItem.id + "</td>" +
+                    "<td>" + menuItem.meal + "</td>" +
+                    "<td>" + menuItem.price + "</td>";
+
+                tbody.appendChild(row);
+            });
+        }
+    </script>
+
+</body>
